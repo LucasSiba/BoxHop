@@ -7,27 +7,32 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public float speed = 2f;
-	public Text  touchPositionText;
-	public bool   DEBUG_MODE = true;
+	public float      speed = 2f;
+	public Text       debugText;
+	public GameObject fellText;
+	public bool       DEBUG_MODE = true;
 
 	private Rigidbody rb;
 	private Vector3   movement;
 
-	// Use this for initialization
 	void Start () {
 		rb = GetComponent <Rigidbody> ();
 
 		if (DEBUG_MODE) {
 			// Make a text box over the screen for debug info
-			touchPositionText.rectTransform.sizeDelta = new Vector2 (Screen.width - 40, Screen.height - 40);
+			debugText.rectTransform.sizeDelta = new Vector2 (Screen.width - 40, Screen.height - 40);
 		}
 	}
 
 	void Update () {
-		if (transform.position.y < -20) {
-			SceneManager.LoadScene (0);
+		if (transform.position.y < -10) {
+			Invoke("RestartLevel", 2);
+			fellText.SetActive(true);
 		}
+	}
+
+	void RestartLevel () {
+		SceneManager.LoadScene (0);
 	}
 
 	void FixedUpdate () {
@@ -52,9 +57,9 @@ public class PlayerMovement : MonoBehaviour {
 			#endif
 
 			if (DEBUG_MODE) {
-				if (i == 0) { touchPositionText.text = ""; }
+				if (i == 0) { debugText.text = ""; }
 				// Is there a snprintf() formatted print equivalent in C# ?
-				touchPositionText.text += "Touch Position (" + i + "): X:"
+				debugText.text += "Touch Position (" + i + "): X:"
 				+ touchPosition.x.ToString ("F0") + " (" + Screen.width.ToString ("F0") + "), Y:"
 				+ touchPosition.y.ToString ("F0") + " (" + Screen.height.ToString ("F0") + ") - ";
 			}
@@ -64,7 +69,7 @@ public class PlayerMovement : MonoBehaviour {
 				// Divide the lower 1/2 into thirds (joystick on the left, jump button on the right, nothing in the middle)
 				if (touchPosition.x < (Screen.width / 3)) {
 					// Joystick
-					if (DEBUG_MODE) { touchPositionText.text += "Joystick\n"; }
+					if (DEBUG_MODE) { debugText.text += "Joystick\n"; }
 					// Is the touch in the given quadrent of the joystick area? (minus a small dead-zone in the middle)
 					if (touchPosition.y > (((Screen.height / 2) / 2) + (Screen.height / 15))) { z =  1; }
 					if (touchPosition.y < (((Screen.height / 2) / 2) - (Screen.height / 15))) { z = -1; }
@@ -73,16 +78,26 @@ public class PlayerMovement : MonoBehaviour {
 				}
 				else if (touchPosition.x > (Screen.width * (2.0f/3.0f))) {
 					// Jump Button
-					if (DEBUG_MODE) { touchPositionText.text += "Jump\n"; }
+					if (DEBUG_MODE) { debugText.text += "Jump\n"; }
 					y = 1;
 				}
 				else {
-					if (DEBUG_MODE) { touchPositionText.text += "non-touch area\n"; }
+					if (DEBUG_MODE) { debugText.text += "non-touch area\n"; }
 				}
 			} else {
-				if (DEBUG_MODE) { touchPositionText.text += "non-touch area\n"; }
+				if (DEBUG_MODE) { debugText.text += "non-touch area\n"; }
 			}				
 		}
+
+		#if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
+		if (touchCount == 0) {
+			if (Input.GetKey("space"))                      { y =  1; }
+			if (Input.GetKey("up")    || Input.GetKey("w")) { z =  1; }
+			if (Input.GetKey("down")  || Input.GetKey("s")) { z = -1; }
+			if (Input.GetKey("left")  || Input.GetKey("a")) { x = -1; }
+			if (Input.GetKey("right") || Input.GetKey("d")) { x =  1; }
+		}
+		#endif
 
 		// Set the movement vector based on the axis input.
 		movement.Set (x, y, z);
