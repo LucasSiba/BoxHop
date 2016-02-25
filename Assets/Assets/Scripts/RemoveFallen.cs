@@ -3,8 +3,6 @@ using System.Collections;
 
 public class RemoveFallen : MonoBehaviour {
 
-	public GameObject policeCarPrefab;
-
 	void Update () {
 		CheckChildren (transform);
 	}
@@ -19,9 +17,6 @@ public class RemoveFallen : MonoBehaviour {
 		// then check this child
 		if (tr.position.y < -10) {
 			Destroy (tr.gameObject);
-			if (tr.gameObject.name == "Cube") {
-				SpawnPoliceCar ();
-			}
 		} else {
 			Rigidbody rb = tr.gameObject.GetComponent<Rigidbody> ();
 			if (rb == null && children == 0) {
@@ -29,12 +24,4 @@ public class RemoveFallen : MonoBehaviour {
 			}
 		}
 	}
-
-	void SpawnPoliceCar () {
-	    Vector3 spawnPointPos = new Vector3 (0.0f, 10.0f, 0.0f);
-	    Quaternion spawnPointRot = new Quaternion(Random.Range (0, 180), Random.Range (0, 180), Random.Range (0, 180), Random.Range (0, 180));
-	    GameObject newCar = Instantiate(policeCarPrefab, spawnPointPos, spawnPointRot) as GameObject;
-	    newCar.transform.SetParent (transform);
-	}
-
 }
