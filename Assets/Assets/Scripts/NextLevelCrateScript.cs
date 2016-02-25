@@ -8,5 +8,4 @@ public class NextLevelCrateScript : MonoBehaviour {
 			NextLevel.SwitchToNextLevel ();
 		}
 	}
-
 }

@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKey("left")  || Input.GetKey("a")) { x = -1; }
 		if (Input.GetKey("right") || Input.GetKey("d")) { x =  1; }
 		#else
-
 		int touchCount = Input.touchCount;
 		for (int i = 0; i < touchCount; i++) {
 
@@ -94,7 +93,6 @@ public class PlayerMovement : MonoBehaviour {
 		#endif
 
 		movement.Set (x, 0, z);
-
 		// Normalise the movement vector and make it proportional to the speed per second.
 		movement = movement.normalized * speed * Time.deltaTime;
 		movement.y = y * speed * Time.deltaTime;
