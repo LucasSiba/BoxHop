@@ -63,8 +63,10 @@ public class NextLevel : MonoBehaviour {
 		foreach (Collider c in colliders) {
 			Rigidbody rb = c.GetComponent<Rigidbody> ();
 			if (rb == null) continue; 
-			if (clearAll != 0 || rb.gameObject.name != "Player") {
-				rb.AddExplosionForce (500, new Vector3(0.0f, 0.0f, 0.0f), 200, 1.0f, ForceMode.Force);
+			if (clearAll != 0) {
+				rb.AddExplosionForce (2000, new Vector3 (0.0f, 0.0f, 0.0f), 500, 0.5f, ForceMode.Force);
+			} else if (rb.gameObject.name != "Player") {
+				rb.AddExplosionForce (500, new Vector3 (0.0f, 0.0f, 0.0f), 200, 1.0f, ForceMode.Force);
 			}
 		}
 	}
