@@ -11,11 +11,12 @@ public class NextLevel : MonoBehaviour {
 	public GameObject envSpawnObject;
 	public GameObject EnemyFireBox1;
 
-	//public GameObject policeCarPrefab;
 	public int currentLevel = 0;
 	public Text levelText;
 
 	private Transform envTransform;
+
+	private int Level1EnemyCount = 0;
 
 	void Start() {
 		envTransform = envSpawnObject.GetComponent<Transform> ();
@@ -42,7 +43,7 @@ public class NextLevel : MonoBehaviour {
 			Rigidbody rb = c.GetComponent<Rigidbody> ();
 			if (rb == null) continue; 
 			if (rb.gameObject.name != "Player") {
-				rb.AddExplosionForce (300, new Vector3(0.0f, 0.0f, 0.0f), 1000, 1.0f, ForceMode.Force);
+				rb.AddExplosionForce (400, new Vector3(0.0f, 0.0f, 0.0f), 1000, 1.0f, ForceMode.Force);
 			}
 		}
 	}
@@ -59,23 +60,28 @@ public class NextLevel : MonoBehaviour {
 	void ShowLevelText  () { Invoke("ClearLevelText", 3); levelText.text = "Level " + currentLevel;	}
 	void ClearLevelText () { levelText.text = ""; }
 
-//	void SpawnPoliceCar () {
-//		Vector3 spawnPointPos = new Vector3 (0.0f, Random.Range(5, 20), 0.0f);
-//		Quaternion spawnPointRot = new Quaternion(Random.Range (0, 180), Random.Range (0, 180), Random.Range (0, 180), Random.Range (0, 180));
-//		GameObject newCar = Instantiate(policeCarPrefab, spawnPointPos, spawnPointRot) as GameObject;
-//		newCar.transform.SetParent (transform);
-//	}
-
 	void StartLoadLevelAssets () { Invoke ("LoadLevelAssets", 3); }
 
 	void LoadLevelAssets () {
 		if (currentLevel == 1) {
-			Vector3 spawnPointPos = new Vector3 (UnityEngine.Random.Range(-5, 5), 5, UnityEngine.Random.Range(-5, 5));
-			Quaternion spawnPointRot = new Quaternion(UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180));
-			GameObject newEnemy = Instantiate(EnemyFireBox1, spawnPointPos, spawnPointRot) as GameObject;
-			newEnemy.transform.SetParent (envTransform);
+			InvokeRepeating ("InvokeEnemyFireBox1", 0, 2);
 		}
 	}
+
+	void InvokeEnemyFireBox1 () {
+		Vector3 spawnPointPos = new Vector3 (UnityEngine.Random.Range(-9, 9), 5, UnityEngine.Random.Range(-9, 9));
+		Quaternion spawnPointRot = new Quaternion(UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180));
+		GameObject newEnemy = Instantiate(EnemyFireBox1, spawnPointPos, spawnPointRot) as GameObject;
+		newEnemy.transform.SetParent (envTransform);
+
+		if (currentLevel == 1) {
+			Level1EnemyCount++;
+			if (Level1EnemyCount > 5) {
+				CancelInvoke ("InvokeEnemyFireBox1");
+			}
+		}
+	}
+
 }
 
 

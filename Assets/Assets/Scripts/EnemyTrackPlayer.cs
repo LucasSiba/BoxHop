@@ -4,21 +4,28 @@ using System.Collections;
 public class EnemyTrackPlayer : MonoBehaviour {
 
 	public GameObject player;
-	public float        speed = 3.0f;
+	public float      speed = 1.6f;
 
-	private Rigidbody rb;
-	private Vector3 movement;
+	private Vector3 direction;
 
 	void Start () {
-		rb = GetComponent<Rigidbody> ();
 		player = GameObject.FindWithTag("Player");
-
 	}
 
 	void Update () {
-		movement.Set (player.transform.position.x, 0, player.transform.position.z);
-		movement = movement.normalized * speed * Time.deltaTime;
-		movement.y = 2 * speed * Time.deltaTime; // Always Jumping
-		rb.MovePosition (transform.position + movement);
+		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+	}
+
+	void OnCollisionEnter (Collision collision) {
+		if (collision.gameObject.name != "Ground") {
+			Collider[] colliders = Physics.OverlapSphere (collision.contacts [0].point, 1);
+			foreach (Collider c in colliders) {
+				Rigidbody rb = c.GetComponent<Rigidbody> ();
+				if (rb == null)	continue;
+				if (rb.gameObject.name != "Ground") {
+					rb.AddExplosionForce (500, collision.contacts [0].point, 1, 0, ForceMode.Force);
+				}
+			}
+		}
 	}
 }

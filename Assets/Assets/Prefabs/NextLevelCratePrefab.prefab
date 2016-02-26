@@ -93,7 +93,7 @@ GameObject:
   - 54: {fileID: 5447270}
   - 114: {fileID: 11448838}
   m_Layer: 0
-  m_Name: CratePrefab
+  m_Name: NextLevelCratePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
