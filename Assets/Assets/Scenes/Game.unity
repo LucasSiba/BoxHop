@@ -731,7 +731,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 691661751}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -5}
+  m_LocalPosition: {x: 0, y: 0.5, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -855,8 +855,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   envSpawnObject: {fileID: 862322966}
   EnemyFireBox1: {fileID: 151466, guid: 0e263f24b31c14307b5bff3103e4b6c3, type: 2}
+  EnemyFireBox2: {fileID: 160708, guid: 122ba9475a4d140e0b349e53208ed8ff, type: 2}
   currentLevel: 0
   levelText: {fileID: 60199671}
+  enemiesPerLevel: 5
 --- !u!1001 &826238643
 Prefab:
   m_ObjectHideFlags: 0

@@ -14,6 +14,10 @@ public class RemoveFallen : MonoBehaviour {
 			CheckChildren (tr.GetChild (i));
 		}
 
+		if (tr == transform) {
+			return;
+		}
+
 		// then check this child
 		if (tr.position.y < -10) {
 			Destroy (tr.gameObject);
