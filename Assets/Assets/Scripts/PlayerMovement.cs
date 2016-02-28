@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void RestartLevel () {
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (1);
 	}
 
 	// Taking user input and moving the player... should this be Update() instead?

@@ -1,41 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DigitalRuby.PyroParticles;
 
-public class EnemyTrackPlayer : MonoBehaviour {
+public class EnemyPillarOfDoomThrowFire : MonoBehaviour {
 
 	public GameObject player;
 	public float      speed;
+	public GameObject fireBall;
 
 	private Vector3 direction;
 
 	void Start () {
 		player = GameObject.FindWithTag("Player");
 		Invoke("BlowUp",  7);
-		InvokeRepeating("SlowDown",  1, 1);
+		Invoke("ThrowFire",  5);
 	}
 
 	void Update () {
 		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-	}
-
-	void OnCollisionEnter (Collision collision) {
-		if (collision.gameObject.name != "Ground") {
-			Collider[] colliders = Physics.OverlapSphere (collision.contacts [0].point, 1);
-			foreach (Collider c in colliders) {
-				Rigidbody rb = c.GetComponent<Rigidbody> ();
-				if (rb == null)	continue;
-				if (rb.gameObject.name != "Ground") {
-					rb.AddExplosionForce (500, collision.contacts [0].point, 1, 0, ForceMode.Force);
-				}
-			}
-		}
-	}
-
-	void SlowDown() {
-		speed = speed - 0.2f;
-		if (speed < 0.0) {
-			Destroy (transform.gameObject);
-		}
 	}
 
 	void BlowUp() {
@@ -49,4 +31,10 @@ public class EnemyTrackPlayer : MonoBehaviour {
 		}
 	}
 
+	private void ThrowFire()
+	{
+		GameObject fireBallObject = Instantiate(fireBall, transform.position, transform.rotation) as GameObject;
+		FireProjectileScript projectileScript = fireBallObject.GetComponentInChildren<FireProjectileScript>();
+		projectileScript.ProjectileExplosionForce = 1000;
+	}
 }
