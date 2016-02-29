@@ -26,7 +26,7 @@ public class NextLevel : MonoBehaviour {
 	public int  Level2EnemyMaxCount = 10;
 	public AudioClip Level2Audio;
 	private int Level3EnemyCurCount =  0;
-	public int  Level3EnemyMaxCount =  3;
+	public int  Level3EnemyMaxCount = 20;
 	public AudioClip Level3Audio;
 
 
@@ -108,7 +108,7 @@ public class NextLevel : MonoBehaviour {
 		}
 
 		if (currentLevel == 3) {
-			InvokeRepeating ("Level3Enemies", 0.0f, 1.0f);
+			InvokeRepeating ("Level3Enemies", 0.0f, 0.5f);
 			audioSource.clip = Level3Audio;
 			audioSource.Play ();
 		}
