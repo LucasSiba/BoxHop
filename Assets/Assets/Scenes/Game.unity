@@ -238,12 +238,12 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 87c316b602156405d92e616621658222, type: 3}
-    m_FontSize: 40
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -858,6 +858,7 @@ MonoBehaviour:
   EnemyFireBox1: {fileID: 151466, guid: 0e263f24b31c14307b5bff3103e4b6c3, type: 2}
   EnemyFireBox2: {fileID: 160708, guid: 122ba9475a4d140e0b349e53208ed8ff, type: 2}
   EnemyPillarOfDoom: {fileID: 138630, guid: 54aa9423d781e4912b549c66ed7685ab, type: 2}
+  EnemyBouncer: {fileID: 199496, guid: 866b7630385f147d3aaa9f43f0c06a64, type: 2}
   currentLevel: 0
   levelText: {fileID: 60199671}
   Level1EnemyMaxCount: 5
@@ -866,6 +867,8 @@ MonoBehaviour:
   Level2Audio: {fileID: 8300000, guid: b7501a20c06ef20469c1419fea37f021, type: 3}
   Level3EnemyMaxCount: 25
   Level3Audio: {fileID: 8300000, guid: 457771d0864a67842a71c2fb0a3fdc1a, type: 3}
+  Level4EnemyMaxCount: 10
+  Level4Audio: {fileID: 8300000, guid: 4ebcc72e434844d68af7e854c6bc02a7, type: 3}
 --- !u!82 &808448507
 AudioSource:
   m_ObjectHideFlags: 0

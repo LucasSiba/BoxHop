@@ -39,14 +39,8 @@ public class EnemyTrackPlayer : MonoBehaviour {
 	}
 
 	void BlowUp() {
-		Collider[] colliders = Physics.OverlapSphere (transform.position, 1);
-		foreach (Collider c in colliders) {
-			Rigidbody rb = c.GetComponent<Rigidbody> ();
-			if (rb == null)	continue;
-			if (rb.gameObject.name != "Ground") {
-				rb.AddExplosionForce (1000, new Vector3(transform.position.x, 0.0f, transform.position.z - 1.0f), 1.5f, 0.5f, ForceMode.Force);
-			}
-		}
+		Rigidbody rb = GetComponent<Rigidbody> ();
+		rb.AddExplosionForce (1000, new Vector3(transform.position.x, transform.position.y, transform.position.z - Random.Range(-1.0f, 1.0f)), 100, 1f, ForceMode.Force);
 	}
 
 }

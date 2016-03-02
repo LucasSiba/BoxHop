@@ -14,6 +14,7 @@ public class NextLevel : MonoBehaviour {
 	public GameObject EnemyFireBox1;
 	public GameObject EnemyFireBox2;
 	public GameObject EnemyPillarOfDoom;
+	public GameObject EnemyBouncer;
 
 	static bool switchToNextLevel = false;
 	public int currentLevel = 0;
@@ -22,12 +23,18 @@ public class NextLevel : MonoBehaviour {
 	private int Level1EnemyCurCount =  0;
 	public int  Level1EnemyMaxCount =  5;
 	public AudioClip Level1Audio;
+
 	private int Level2EnemyCurCount =  0;
 	public int  Level2EnemyMaxCount = 12;
 	public AudioClip Level2Audio;
+
 	private int Level3EnemyCurCount =  0;
 	public int  Level3EnemyMaxCount = 25;
 	public AudioClip Level3Audio;
+
+	private int Level4EnemyCurCount =  0;
+	public int  Level4EnemyMaxCount = 10;
+	public AudioClip Level4Audio;
 
 	void Awake() {
 		Application.targetFrameRate = 60;
@@ -55,7 +62,8 @@ public class NextLevel : MonoBehaviour {
 		if (envTransform.childCount == 0) {
 			if (currentLevel == 1 && Level1EnemyCurCount >= Level1EnemyMaxCount) { SwitchToNextLevel (); }
 			if (currentLevel == 2 && Level2EnemyCurCount >= Level2EnemyMaxCount) { SwitchToNextLevel (); }
-			if (currentLevel == 3 && Level3EnemyCurCount >= Level3EnemyMaxCount) { GameIsWon (); }
+			if (currentLevel == 3 && Level3EnemyCurCount >= Level3EnemyMaxCount) { SwitchToNextLevel (); }
+			if (currentLevel == 4 && Level4EnemyCurCount >= Level4EnemyMaxCount) { GameIsWon (); }
 		}
 	}
 
@@ -115,6 +123,12 @@ public class NextLevel : MonoBehaviour {
 			audioSource.clip = Level3Audio;
 			audioSource.Play ();
 		}
+
+		if (currentLevel == 4) {
+			InvokeRepeating ("Level4Enemies", 0.0f, 0.10f);
+			audioSource.clip = Level4Audio;
+			audioSource.Play ();
+		}
 	}
 
 	void Level1Enemies () {
@@ -151,6 +165,18 @@ public class NextLevel : MonoBehaviour {
 		Level3EnemyCurCount++;
 		if (Level3EnemyCurCount > Level3EnemyMaxCount) {
 			CancelInvoke ("Level3Enemies");
+		}
+	}
+
+	void Level4Enemies () {
+		Vector3 spawnPointPos = new Vector3 (UnityEngine.Random.Range(-9, 9), 5, UnityEngine.Random.Range(-9, 9));
+		Quaternion spawnPointRot = new Quaternion(UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180));
+		GameObject newEnemy = Instantiate(EnemyBouncer, spawnPointPos, spawnPointRot) as GameObject;
+		newEnemy.transform.SetParent (envTransform);
+
+		Level4EnemyCurCount++;
+		if (Level4EnemyCurCount > Level4EnemyMaxCount) {
+			CancelInvoke ("Level4Enemies");
 		}
 	}
 
