@@ -589,7 +589,7 @@ GameObject:
   - 114: {fileID: 1017075995}
   - 114: {fileID: 1017075994}
   m_Layer: 5
-  m_Name: Turtorial
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Turtorial
+  m_Text: Tutorial
 --- !u!222 &1747565279
 CanvasRenderer:
   m_ObjectHideFlags: 0

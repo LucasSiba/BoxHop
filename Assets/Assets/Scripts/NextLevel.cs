@@ -23,12 +23,15 @@ public class NextLevel : MonoBehaviour {
 	public int  Level1EnemyMaxCount =  5;
 	public AudioClip Level1Audio;
 	private int Level2EnemyCurCount =  0;
-	public int  Level2EnemyMaxCount = 10;
+	public int  Level2EnemyMaxCount = 12;
 	public AudioClip Level2Audio;
 	private int Level3EnemyCurCount =  0;
-	public int  Level3EnemyMaxCount = 20;
+	public int  Level3EnemyMaxCount = 25;
 	public AudioClip Level3Audio;
 
+	void Awake() {
+		Application.targetFrameRate = 60;
+	}
 
 	void Start() {
 		envTransform = envSpawnObject.GetComponent<Transform> ();

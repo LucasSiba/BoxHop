@@ -862,9 +862,9 @@ MonoBehaviour:
   levelText: {fileID: 60199671}
   Level1EnemyMaxCount: 5
   Level1Audio: {fileID: 8300000, guid: 3743191223aa7884aa5f127d9f41d978, type: 3}
-  Level2EnemyMaxCount: 10
+  Level2EnemyMaxCount: 12
   Level2Audio: {fileID: 8300000, guid: b7501a20c06ef20469c1419fea37f021, type: 3}
-  Level3EnemyMaxCount: 20
+  Level3EnemyMaxCount: 25
   Level3Audio: {fileID: 8300000, guid: 457771d0864a67842a71c2fb0a3fdc1a, type: 3}
 --- !u!82 &808448507
 AudioSource:
