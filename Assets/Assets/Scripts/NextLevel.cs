@@ -10,6 +10,7 @@ public class NextLevel : MonoBehaviour {
 	public GameObject envSpawnObject;
 	private Transform envTransform;
 	private AudioSource audioSource;
+	public  AudioClip   winSound;
 
 	public GameObject EnemyFireBox1;
 	public GameObject EnemyFireBox2;
@@ -63,13 +64,23 @@ public class NextLevel : MonoBehaviour {
 			if (currentLevel == 1 && Level1EnemyCurCount >= Level1EnemyMaxCount) { SwitchToNextLevel (); }
 			if (currentLevel == 2 && Level2EnemyCurCount >= Level2EnemyMaxCount) { SwitchToNextLevel (); }
 			if (currentLevel == 3 && Level3EnemyCurCount >= Level3EnemyMaxCount) { SwitchToNextLevel (); }
-			if (currentLevel == 4 && Level4EnemyCurCount >= Level4EnemyMaxCount) { GameIsWon (); }
+			if (currentLevel == 4 && Level4EnemyCurCount >= Level4EnemyMaxCount) {
+				Scene sc = SceneManager.GetActiveScene ();
+				if (sc.buildIndex == 1) {
+					SceneManager.LoadScene (2);
+				} else {
+					GameIsWon ();
+				}
+			}
 		}
 	}
 
 	void GameIsWon () {
 		currentLevel = 0;
 		levelText.text = "You win!";
+		audioSource.clip = winSound;
+		audioSource.Play ();
+		audioSource.loop = false;
 		Invoke("DidntActuallyWin",  3);
 	}
 
@@ -125,7 +136,7 @@ public class NextLevel : MonoBehaviour {
 		}
 
 		if (currentLevel == 4) {
-			InvokeRepeating ("Level4Enemies", 0.0f, 0.10f);
+			InvokeRepeating ("Level4Enemies", 0.0f, 0.2f);
 			audioSource.clip = Level4Audio;
 			audioSource.Play ();
 		}

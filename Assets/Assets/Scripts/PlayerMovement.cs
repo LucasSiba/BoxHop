@@ -4,13 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using DigitalRuby.PyroParticles;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public  GameObject fireEffect;
+	private float      fireTimer;
+
+	public float      timeBetweenFireFire = 1.0f;
 	public float      speed = 5f;
-	public float      yJumpSpeed = 1.1f;
+	public float      yJumpSpeed = 1.2f;
 	public Text       debugText;
 	public GameObject fellText;
+	public bool       fireMode = false;
 	public bool       DEBUG_MODE = true;
 
 	private Rigidbody rb;
@@ -27,7 +33,12 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		if (transform.position.y < -10) {
+		fireTimer += Time.deltaTime;
+
+		if (transform.position.y < -10 && fellText.activeSelf == false) {
+			//if (NextLevel.currentLevel != 0) {
+			//	NextLevel.currentLevel--;
+			//}
 			Invoke("RestartLevel", 2);
 			fellText.SetActive(true);
 		}
@@ -44,7 +55,7 @@ public class PlayerMovement : MonoBehaviour {
 		int   z = 0;
 
 		#if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-		if (Input.GetKey("space")) { y =  yJumpSpeed; }
+		if (Input.GetKey("space")) { if (fireMode) { throwFire(); } else { y =  yJumpSpeed; } }
 		if (Input.GetKey("up")    || Input.GetKey("w")) { z =  1; }
 		if (Input.GetKey("down")  || Input.GetKey("s")) { z = -1; }
 		if (Input.GetKey("left")  || Input.GetKey("a")) { x = -1; }
@@ -67,8 +78,12 @@ public class PlayerMovement : MonoBehaviour {
 			if (touchPosition.y < (Screen.height / 2)) {
 				if (touchPosition.x > (Screen.width * (2.0f / 3.0f))) {
 					// Jump Button
-					if (DEBUG_MODE) { debugText.text += "Jump\n"; }
-					y = yJumpSpeed;
+					if (DEBUG_MODE) { debugText.text += "Jump/Fire\n"; }
+		            if (fireMode) {
+						throwFire();
+					} else {
+						y =  yJumpSpeed;
+					}
 					continue;
 				}
 			}
@@ -98,5 +113,40 @@ public class PlayerMovement : MonoBehaviour {
 		movement.y = y * speed * Time.deltaTime;
 		// Move the player to it's current position plus the movement.
 		rb.MovePosition (transform.position + movement);
+	}
+
+	void throwFire () {
+		if (fireTimer < timeBetweenFireFire) {
+			return;
+		}
+		fireTimer = 0.0f;
+
+		Vector3 pos;
+		Vector3 forward = transform.forward;
+		Vector3 right = transform.right;
+		Vector3 up = (transform.up * 0.8f);
+		Quaternion rotation = Quaternion.identity;
+		GameObject currentPrefabObject;
+		FireBaseScript currentPrefabScript;
+		currentPrefabObject = GameObject.Instantiate(fireEffect);
+		currentPrefabScript = currentPrefabObject.GetComponent<FireConstantBaseScript>();
+
+		// temporary effect, like a fireball
+		currentPrefabScript = currentPrefabObject.GetComponent<FireBaseScript>();
+
+		currentPrefabScript.ForceAmount = 0;
+		currentPrefabScript.ForceRadius = 0;
+		// set the start point near the player
+		rotation = transform.rotation;
+		pos = transform.position + forward +  up;
+
+
+		FireProjectileScript projectileScript = currentPrefabObject.GetComponentInChildren<FireProjectileScript>();
+		projectileScript.ProjectileExplosionForce = 1000;
+		// make sure we don't collide with other friendly layers
+		projectileScript.ProjectileCollisionLayers &= (~UnityEngine.LayerMask.NameToLayer("FriendlyLayer"));
+
+		currentPrefabObject.transform.position = pos;
+		currentPrefabObject.transform.rotation = rotation;
 	}
 }

@@ -14,7 +14,7 @@ public class EnemyBouncePlayer : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindWithTag("Player");
 		audioSource = GetComponent<AudioSource> ();
-		Invoke("BlowUp",  7);
+		Invoke("BlowUp",  20);
 		audioSource.clip = bounceSound;
 	}
 
@@ -30,7 +30,7 @@ public class EnemyBouncePlayer : MonoBehaviour {
 				Rigidbody rb = c.GetComponent<Rigidbody> ();
 				if (rb == null)	continue;
 				if (rb.gameObject.name != "Ground") {
-					rb.AddExplosionForce (150, collision.contacts [0].point, 100, 0.5f, ForceMode.Force);
+					rb.AddExplosionForce (200, collision.contacts [0].point, 100, 0.5f, ForceMode.Force);
 					audioSource.Play ();
 				}
 			}
@@ -39,7 +39,7 @@ public class EnemyBouncePlayer : MonoBehaviour {
 		
 	void BlowUp() {
 		Rigidbody rb = GetComponent<Rigidbody> ();
-		rb.AddExplosionForce (1000, new Vector3(transform.position.x, transform.position.y, transform.position.z - Random.Range(-1.0f, 1.0f)), 100, 1f, ForceMode.Force);
+		rb.AddExplosionForce (1000, new Vector3(transform.position.x, transform.position.y, transform.position.z - 1.0f), 100, 1f, ForceMode.Force);
 	}
 
 }
