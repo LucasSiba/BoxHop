@@ -18,7 +18,7 @@ public class NextLevel : MonoBehaviour {
 	public GameObject EnemyBouncer;
 
 	static bool switchToNextLevel = false;
-	public int currentLevel = 0;
+	public static int currentLevel = 0;
 	public Text levelText;
 
 	private int Level1EnemyCurCount =  0;
@@ -36,6 +36,9 @@ public class NextLevel : MonoBehaviour {
 	private int Level4EnemyCurCount =  0;
 	public int  Level4EnemyMaxCount = 10;
 	public AudioClip Level4Audio;
+
+	private int Level5EnemyCurCount =  0;
+	public int  Level5EnemyMaxCount = 30;
 
 	void Awake() {
 		Application.targetFrameRate = 60;
@@ -64,14 +67,8 @@ public class NextLevel : MonoBehaviour {
 			if (currentLevel == 1 && Level1EnemyCurCount >= Level1EnemyMaxCount) { SwitchToNextLevel (); }
 			if (currentLevel == 2 && Level2EnemyCurCount >= Level2EnemyMaxCount) { SwitchToNextLevel (); }
 			if (currentLevel == 3 && Level3EnemyCurCount >= Level3EnemyMaxCount) { SwitchToNextLevel (); }
-			if (currentLevel == 4 && Level4EnemyCurCount >= Level4EnemyMaxCount) {
-				Scene sc = SceneManager.GetActiveScene ();
-				if (sc.buildIndex == 1) {
-					SceneManager.LoadScene (2);
-				} else {
-					GameIsWon ();
-				}
-			}
+			if (currentLevel == 4 && Level4EnemyCurCount >= Level4EnemyMaxCount) { SceneManager.LoadScene (2); }
+			if (currentLevel == 5 && Level5EnemyCurCount >= Level5EnemyMaxCount) { GameIsWon (); }
 		}
 	}
 
@@ -97,7 +94,7 @@ public class NextLevel : MonoBehaviour {
 			if (clearAll != 0) {
 				rb.AddExplosionForce (2000, new Vector3 (0.0f, 0.0f, 0.0f), 500, 0.5f, ForceMode.Force);
 			} else if (rb.gameObject.name != "Player") {
-				rb.AddExplosionForce (500, new Vector3 (0.0f, 0.0f, 0.0f), 200, 1.0f, ForceMode.Force);
+				rb.AddExplosionForce (1000, new Vector3 (0.0f, 0.0f, 0.0f), 500, 0.5f, ForceMode.Force);
 			}
 		}
 	}
@@ -138,6 +135,12 @@ public class NextLevel : MonoBehaviour {
 		if (currentLevel == 4) {
 			InvokeRepeating ("Level4Enemies", 0.0f, 0.2f);
 			audioSource.clip = Level4Audio;
+			audioSource.Play ();
+		}
+
+		if (currentLevel == 5) {
+			InvokeRepeating ("Level5Enemies", 0.0f, 0.5f);
+			audioSource.clip = Level1Audio;
 			audioSource.Play ();
 		}
 	}
@@ -189,6 +192,19 @@ public class NextLevel : MonoBehaviour {
 		if (Level4EnemyCurCount > Level4EnemyMaxCount) {
 			CancelInvoke ("Level4Enemies");
 		}
+	}
+
+	void Level5Enemies () {
+		Vector3 spawnPointPos = new Vector3 (UnityEngine.Random.Range(-7, 7), 5, UnityEngine.Random.Range(0, 13));
+		Quaternion spawnPointRot = new Quaternion(UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180), UnityEngine.Random.Range (0, 180));
+		GameObject newEnemy = Instantiate(EnemyFireBox1, spawnPointPos, spawnPointRot) as GameObject;
+		newEnemy.transform.SetParent (envTransform);
+
+		Level5EnemyCurCount++;
+		if (Level5EnemyCurCount > Level5EnemyMaxCount) {
+			CancelInvoke ("Level5Enemies");
+		}
+
 	}
 
 }

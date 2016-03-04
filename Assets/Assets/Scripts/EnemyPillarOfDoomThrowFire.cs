@@ -12,7 +12,7 @@ public class EnemyPillarOfDoomThrowFire : MonoBehaviour {
 
 	void Start () {
 		player = GameObject.FindWithTag("Player");
-		Invoke("BlowUp",  7);
+		InvokeRepeating("BlowUp",  7, 7);
 		Invoke("ThrowFire",  5);
 	}
 

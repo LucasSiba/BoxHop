@@ -337,6 +337,10 @@ Prefab:
       propertyPath: m_Name
       value: NextLevelCratePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5447270, guid: b7f866b99c79a46438e892da79c10ee2, type: 2}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7f866b99c79a46438e892da79c10ee2, type: 2}
   m_IsPrefabParent: 0
@@ -418,7 +422,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -446,11 +450,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -7
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -470,11 +474,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.31609723
+      value: 0.24681725
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.944715
+      value: 0.9651348
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_Target
@@ -490,11 +494,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.08265186
+      value: 0.08443836
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.027654927
+      value: -0.021593712
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
       propertyPath: m_BackGroundColor.r
@@ -685,7 +689,6 @@ MonoBehaviour:
   EnemyFireBox2: {fileID: 160708, guid: 122ba9475a4d140e0b349e53208ed8ff, type: 2}
   EnemyPillarOfDoom: {fileID: 138630, guid: 54aa9423d781e4912b549c66ed7685ab, type: 2}
   EnemyBouncer: {fileID: 199496, guid: 866b7630385f147d3aaa9f43f0c06a64, type: 2}
-  currentLevel: 0
   levelText: {fileID: 60199671}
   Level1EnemyMaxCount: 5
   Level1Audio: {fileID: 8300000, guid: 3743191223aa7884aa5f127d9f41d978, type: 3}
@@ -695,6 +698,7 @@ MonoBehaviour:
   Level3Audio: {fileID: 8300000, guid: 457771d0864a67842a71c2fb0a3fdc1a, type: 3}
   Level4EnemyMaxCount: 10
   Level4Audio: {fileID: 8300000, guid: 4ebcc72e434844d68af7e854c6bc02a7, type: 3}
+  Level5EnemyMaxCount: 30
 --- !u!82 &808448507
 AudioSource:
   m_ObjectHideFlags: 0
@@ -778,31 +782,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.99
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.9
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.20444828
+      value: 0.14080611
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.37319574
+      value: -0.23517536
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.08468526
+      value: -0.03445504
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9009741
+      value: -0.9610822
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_RootOrder
@@ -1125,7 +1129,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1133,19 +1137,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.21896662
+      value: -0.20931974
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.37177977
+      value: -0.3727319
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.0906989
+      value: -0.08670303
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.89755625
+      value: 0.8998549
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fef5fcb209dce49409117a24775dfcb3, type: 2}
       propertyPath: m_RootOrder

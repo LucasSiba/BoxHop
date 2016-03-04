@@ -36,16 +36,26 @@ public class PlayerMovement : MonoBehaviour {
 		fireTimer += Time.deltaTime;
 
 		if (transform.position.y < -10 && fellText.activeSelf == false) {
-			//if (NextLevel.currentLevel != 0) {
-			//	NextLevel.currentLevel--;
-			//}
+			NextLevel.currentLevel -= 2;
+
+			Scene sc = SceneManager.GetActiveScene ();
+			if (sc.buildIndex == 1) {
+				if (NextLevel.currentLevel < 0) {
+					NextLevel.currentLevel = 0;
+				}
+			} else {
+				if (NextLevel.currentLevel < 4) {
+					NextLevel.currentLevel = 4;
+				}
+			}
+
 			Invoke("RestartLevel", 2);
 			fellText.SetActive(true);
 		}
 	}
 
 	void RestartLevel () {
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
 	// Taking user input and moving the player... should this be Update() instead?
